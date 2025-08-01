@@ -1,0 +1,85 @@
+/* AdventurerList card styles */
+.adventurer-list-container {
+    max-width: 900px;
+    margin: 2em auto;
+    padding: 0 1em;
+}
+
+.adventurer-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2em;
+}
+
+.adventurer-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(44, 62, 80, 0.08);
+    padding: 1.5em 1.2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: box-shadow 0.2s;
+}
+.adventurer-card:hover {
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.16);
+}
+
+.adventurer-card-header {
+    margin-bottom: 0.7em;
+    width: 100%;
+}
+.adventurer-name {
+    color: #232946;
+    font-size: 1.25em;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.adventurer-name:hover,
+.adventurer-name:focus {
+    color: #3182ce;
+}
+
+.adventurer-card-body {
+    margin-bottom: 1em;
+    width: 100%;
+}
+.adventurer-stat {
+    font-size: 1.05em;
+    color: #4a5568;
+    margin-bottom: 0.3em;
+}
+
+.adventurer-card-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.edit-adventurer-link {
+    color: #eebbc3;
+    text-decoration: none;
+    font-weight: 500;
+    background: #232946;
+    padding: 0.3em 0.8em;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+.edit-adventurer-link:hover,
+.edit-adventurer-link:focus {
+    background: #eebbc3;
+    color: #232946;
+}
+
+.adventurer-gallery-title {
+    font-size: 2.2em;
+    color: #2d3748;
+    margin-bottom: 0em;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+.adventurer-gallery-desc {
+    font-size: 1.15em;
+    color: #4a5568;
+    margin-bottom: 2em;
+}

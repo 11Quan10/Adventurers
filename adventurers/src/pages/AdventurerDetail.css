@@ -1,0 +1,44 @@
+/* AdventurerDetail page styles */
+.adventurer-detail-container {
+    max-width: 420px;
+    margin: 2.5em auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(44, 62, 80, 0.08);
+    padding: 2em 2em 1.5em 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.detail-title {
+    font-size: 1.5em;
+    color: #232946;
+    margin-bottom: 1.2em;
+    text-align: left;
+    font-weight: 700;
+}
+.detail-stats {
+    width: 100%;
+    margin-bottom: 1.2em;
+}
+.detail-stat {
+    font-size: 1.08em;
+    color: #4a5568;
+    margin-bottom: 0.5em;
+}
+.detail-edit-link {
+    background: #3182ce;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    transition: background 0.2s;
+    margin-top: 1em;
+    display: inline-block;
+}
+.detail-edit-link:hover,
+.detail-edit-link:focus {
+    background: #232946;
+}

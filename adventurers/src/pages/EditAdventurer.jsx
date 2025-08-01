@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { supabase } from "../client";
-import "./CreateAdventurer.css";
+import "./EditAdventurer.css";
 
-const CreateAdventurer = () => {
-    const [adventurer, setAdventurer] = useState({
-        name: "",
-        weapon: "",
-        stamina: 0,
-        experience: 0,
-    });
+const EditAdventurer = () => {
+    const { id } = useParams();
+    const [adventurer, setAdventurer] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchAdventurer = async () => {
+            const { data, error } = await supabase
+                .from("Adventurers")
+                .select("*")
+                .eq("id", id)
+                .single();
+            if (!error) setAdventurer(data);
+            setLoading(false);
+        };
+        fetchAdventurer();
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,28 +32,36 @@ const CreateAdventurer = () => {
         }));
     };
 
-    const createAdventurer = async (event) => {
+    const updateAdventurer = async (event) => {
         event.preventDefault();
         await supabase
             .from("Adventurers")
-            .insert({
+            .update({
                 name: adventurer.name,
                 weapon: adventurer.weapon,
                 stamina: adventurer.stamina,
                 experience: adventurer.experience,
             })
-            .select();
+            .eq("id", id);
         window.location = "/gallery";
     };
 
+    const deleteAdventurer = async () => {
+        await supabase.from("Adventurers").delete().eq("id", id);
+        window.location = "/gallery";
+    };
+
+    if (loading) return <div>Loading...</div>;
+    if (!adventurer) return <div>Adventurer not found.</div>;
+
     return (
-        <div className="create-adventurer-container">
-            <h2 className="create-title">Create Adventurer</h2>
-            <form className="create-form" onSubmit={createAdventurer}>
-                <label className="create-label">
+        <div className="edit-adventurer-container">
+            <h2 className="edit-title">Edit Adventurer</h2>
+            <form className="edit-form" onSubmit={updateAdventurer}>
+                <label className="edit-label">
                     Name:
                     <input
-                        className="create-input"
+                        className="edit-input"
                         type="text"
                         name="name"
                         value={adventurer.name}
@@ -50,10 +69,10 @@ const CreateAdventurer = () => {
                         required
                     />
                 </label>
-                <label className="create-label">
+                <label className="edit-label">
                     Weapon:
                     <input
-                        className="create-input"
+                        className="edit-input"
                         type="text"
                         name="weapon"
                         value={adventurer.weapon}
@@ -61,10 +80,10 @@ const CreateAdventurer = () => {
                         required
                     />
                 </label>
-                <label className="create-label">
+                <label className="edit-label">
                     Stamina:
                     <input
-                        className="create-input"
+                        className="edit-input"
                         type="number"
                         name="stamina"
                         value={adventurer.stamina}
@@ -73,10 +92,10 @@ const CreateAdventurer = () => {
                         required
                     />
                 </label>
-                <label className="create-label">
+                <label className="edit-label">
                     Experience:
                     <input
-                        className="create-input"
+                        className="edit-input"
                         type="number"
                         name="experience"
                         value={adventurer.experience}
@@ -85,9 +104,16 @@ const CreateAdventurer = () => {
                         required
                     />
                 </label>
-                <div className="create-btn-group">
-                    <button className="create-btn" type="submit">
-                        Create
+                <div className="edit-btn-group">
+                    <button className="edit-btn" type="submit">
+                        Update
+                    </button>
+                    <button
+                        className="delete-btn"
+                        type="button"
+                        onClick={deleteAdventurer}
+                    >
+                        Delete
                     </button>
                 </div>
             </form>
@@ -95,4 +121,4 @@ const CreateAdventurer = () => {
     );
 };
 
-export default CreateAdventurer;
+export default EditAdventurer;
